@@ -5,6 +5,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
@@ -95,18 +96,20 @@ const App: React.FC = (): React.ReactElement => {
                 <span className="text-sm text-muted-foreground">Showing first 5 results</span>
               </div>
               <Separator />
-              <div className="space-y-3 max-h-96 overflow-auto">
-                {users.slice(0, 5).map((user: User) => (
-                  <Card key={user.id}>
-                    <CardContent className="pt-6">
-                      <div className="font-semibold">{user.name}</div>
-                      <div className="text-sm text-muted-foreground">
-                        @{user.username} • {user.email}
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+              <ScrollArea className="h-96 w-full rounded-md">
+                <div className="space-y-3 pr-4">
+                  {users.slice(0, 5).map((user: User) => (
+                    <Card key={user.id}>
+                      <CardContent className="pt-6">
+                        <div className="font-semibold">{user.name}</div>
+                        <div className="text-sm text-muted-foreground">
+                          @{user.username} • {user.email}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </ScrollArea>
             </div>
           )}
         </CardContent>
