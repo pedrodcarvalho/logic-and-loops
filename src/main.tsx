@@ -4,6 +4,7 @@ import { createRoot, type Root } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 
+import { ThemeProvider } from '@/contexts/ThemeContext';
 import { queryClient } from '@/lib/queryClient';
 import { router } from '@/router';
 import { store } from '@/store';
@@ -19,10 +20,12 @@ const root: Root = createRoot(rootElement);
 
 root.render(
   <StrictMode>
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
-    </Provider>
+    <ThemeProvider>
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </Provider>
+    </ThemeProvider>
   </StrictMode>,
 );
