@@ -14,4 +14,7 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  optimizeDeps: {
+    exclude: ['react-syntax-highlighter/dist/esm/async-languages'],
+  },
 });

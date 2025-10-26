@@ -1,10 +1,15 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
+import { useAppDispatch } from '@/hooks/useRedux';
+import { setTheme as setReduxTheme } from '@/store/slices/themeSlice';
+
 import type { Theme, ThemeContextType } from '@/types';
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }): React.ReactElement => {
+  const dispatch = useAppDispatch();
+
   const [theme, setTheme] = useState<Theme>((): Theme => {
     const storedTheme: Theme | null = localStorage.getItem('theme') as Theme | null;
     if (storedTheme) {
@@ -26,7 +31,9 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }): Reac
     root.classList.add(theme);
 
     localStorage.setItem('theme', theme);
-  }, [theme]);
+
+    dispatch(setReduxTheme(theme));
+  }, [theme, dispatch]);
 
   const toggleTheme = (): void => {
     setTheme((prevTheme: Theme): Theme => (prevTheme === 'light' ? 'dark' : 'light'));
